@@ -8,6 +8,7 @@
 #define FRAMES_PER_SECOND 30
 
 int stripCount = 5;
+int x=0;
 
 uint16_t serpentineArray[] = {
   0,  60, 120, 180, 240,
@@ -96,21 +97,20 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  candyStripes(CRGB::Red , CRGB::White, 3);
+  candyStripes(CRGB::Red , CRGB::White, 3, 500);
 
 }
 
 
 
-void candyStripes(CRGB color1, CRGB color2, int stripeWidth) {
-  EVERY_N_MILLIS(1000) {
-
+void candyStripes(CRGB color1, CRGB color2, int stripeWidth, int speed) {
+  EVERY_N_MILLIS(speed) {
     uint16_t i, j, pos;
     for (j = 0; j < round(NUM_LEDS_PER_STRIP / stripeWidth); j++) { //calculate rows based on stripe size
 
       for (i = 0; i < stripCount * stripeWidth; i++) {
         pos = i + (j * stripeWidth * stripCount);
-        if (j % 2 == 0) {
+        if ((j+x) % 2 == 0) {
           leds[serpentineArray[pos]] = color1;
         } else {
           leds[serpentineArray[pos]] = color2;
@@ -118,5 +118,7 @@ void candyStripes(CRGB color1, CRGB color2, int stripeWidth) {
       }
     }
     FastLED.show();
+      x++;
+      if(x>=NUM_LEDS) x=0;
   }
 }
