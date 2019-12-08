@@ -111,9 +111,6 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   candyStripes(15, CRGB::Red , CRGB::White, 2000);
-  //FastLED.show();
-
-
 }
 
 
